@@ -1,0 +1,29 @@
+{
+  "name": "ews-migration-skills",
+  "owner": {
+    "name": "OfficeDev",
+    "url": "https://github.com/OfficeDev/ews-migration-analyzer"
+  },
+  "metadata": {
+    "description": "Copilot skills for migrating Exchange Web Services (EWS) applications to Microsoft Graph API",
+    "version": "1.0.0",
+    "documentation_hub": "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+  },
+  "plugins": [
+    {
+      "name": "ews-migration",
+      "description": "Complete EWS-to-Graph API migration skill set. Guides developers through discovery, documentation, instrumentation, testing, refactoring, and validation of EWS application migrations with human-in-the-loop checkpoints.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./src/Ews.Sample.Migration/skills/ews-discover",
+        "./src/Ews.Sample.Migration/skills/ews-understand",
+        "./src/Ews.Sample.Migration/skills/ews-instrument",
+        "./src/Ews.Sample.Migration/skills/ews-test",
+        "./src/Ews.Sample.Migration/skills/ews-refactor",
+        "./src/Ews.Sample.Migration/skills/ews-validate",
+        "./src/Ews.Sample.Migration/skills/ews-migration-orchestrator"
+      ]
+    }
+  ]
+}

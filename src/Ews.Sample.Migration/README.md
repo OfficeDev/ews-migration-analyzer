@@ -23,6 +23,90 @@ We hope that learning about using AI tools like GitHub Copilot on what would oth
 - [Adding Instrumentation with .NET Aspire](./02-Add_Instrumentation/README.md)
 - [Adding Unit Tests with xUnit and NSubstitute](./03-Add_Tests/README.md)
 - [Refactor for Modularity with and remove EWS](./04-Refactor/README.md)
+- [Copilot Skills Marketplace](#copilot-skills-marketplace)
+- [Orchestration Agent](./skills/ews-migration-orchestrator/SKILL.md)
+
+## Copilot Skills Marketplace
+
+In addition to the step-by-step tutorial, this folder includes an **EWS Migration Skills Marketplace** built to the [Agent Skills](https://agentskills.io) open standard — a set of Copilot skills and an orchestration agent that can automate and guide the migration end-to-end with human-in-the-loop checkpoints.
+
+### Available Skills
+
+Each skill follows the [agentskills.io specification](https://agentskills.io/specification): a directory containing a `SKILL.md` with YAML frontmatter and markdown instructions, plus optional `references/` for supplementary documentation.
+
+| Skill | Directory | Stage | Description | Complexity |
+|-------|-----------|-------|-------------|------------|
+| [EWS Discovery & Assessment](./skills/ews-discover/SKILL.md) | `ews-discover/` | 00 | Identify all EWS usage in your tenant and codebase using EWS Usage Reports and the Code Analyzer | Low |
+| [Build Understanding](./skills/ews-understand/SKILL.md) | `ews-understand/` | 01 | AI-assisted analysis to generate requirements docs, code comments, and Copilot instructions | Low |
+| [Add Instrumentation](./skills/ews-instrument/SKILL.md) | `ews-instrument/` | 02 | Add .NET Aspire observability for runtime monitoring during migration | Medium |
+| [Add Tests](./skills/ews-test/SKILL.md) | `ews-test/` | 03 | Generate xUnit/NSubstitute unit tests as a safety net for refactoring | Medium |
+| [Refactor & Migrate to Graph API](./skills/ews-refactor/SKILL.md) | `ews-refactor/` | 04 | Extract service layer, implement Graph API, validate, and remove EWS (3 sub-phases) | High |
+| [Final Validation & Documentation](./skills/ews-validate/SKILL.md) | `ews-validate/` | 05 | Post-migration validation, documentation update, and completion report | Low |
+
+### Orchestration Agent
+
+The [Migration Orchestrator Agent](./skills/ews-migration-orchestrator/SKILL.md) guides you through each skill in sequence. It:
+
+- Assesses current migration state and supports resuming from any point
+- Presents relevant Microsoft documentation at each stage
+- Enforces human approval gates before and after every skill
+- Handles parity gaps where Graph API equivalents are not yet available
+- Generates a final migration summary when all skills complete
+
+### Installing as a Plugin
+
+The skills are registered as a plugin marketplace in [`.claude-plugin/marketplace.json`](../../.claude-plugin/marketplace.json). To install in a compatible agent:
+
+```
+/plugin marketplace add OfficeDev/ews-migration-analyzer
+```
+
+### Using the Skills
+
+Each skill is a self-contained directory following the [Agent Skills](https://agentskills.io) format. Skills can be:
+
+1. **Orchestrated**: Use the orchestrator agent for end-to-end guided migration
+2. **Invoked individually**: Use any skill independently for a specific migration phase
+3. **Customized**: Adapt skill prompts to your application's specific needs
+
+### Skill Directory Structure
+
+```
+skills/
+├── ews-discover/                     # Stage 00
+│   ├── SKILL.md                      # Frontmatter + instructions
+│   └── references/REFERENCE.md       # Microsoft documentation links
+├── ews-understand/                   # Stage 01
+│   ├── SKILL.md
+│   └── references/REFERENCE.md
+├── ews-instrument/                   # Stage 02
+│   ├── SKILL.md
+│   └── references/REFERENCE.md
+├── ews-test/                         # Stage 03
+│   ├── SKILL.md
+│   └── references/REFERENCE.md
+├── ews-refactor/                     # Stage 04
+│   ├── SKILL.md
+│   └── references/
+│       ├── REFERENCE.md
+│       └── ews-graph-mapping.md      # EWS→Graph operation mapping
+├── ews-validate/                     # Stage 05
+│   ├── SKILL.md
+│   └── references/
+│       ├── REFERENCE.md
+│       └── migration-report-template.md
+└── ews-migration-orchestrator/       # Orchestrator
+    ├── SKILL.md
+    └── references/REFERENCE.md
+```
+
+### Key Resources
+
+- [Deprecation of EWS in Exchange Online](https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online)
+- [EWS to Graph API Mappings](https://aka.ms/ews2graphMap)
+- [Midnight Blizzard Security Incident](https://aka.ms/mblizz)
+- [EWS Migration Tools](https://aka.ms/ewsTools)
+- [Agent Skills Specification](https://agentskills.io/specification)
 
 ## Getting Started
 
