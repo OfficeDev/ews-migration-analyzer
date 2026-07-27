@@ -30,17 +30,26 @@ See the [EWS Code Analyzer Readme](src/Ews.Code.Analyzer/README.md) for more inf
 
 ## Using the Plugins in Copilot CLI
 
-This repository includes a Copilot plugin marketplace manifest at [`.copilot/plugin/marketplace.json`](.copilot/plugin/marketplace.json). It exposes the EWS migration skills and orchestrator from [Ews.Sample.Migration](src/Ews.Sample.Migration/README.md) so you can use them directly from Copilot CLI.
+This repository includes a Copilot plugin marketplace manifest at [`.github/plugin/marketplace.json`](.github/plugin/marketplace.json). It exposes the EWS migration skills and orchestrator from [Ews.Sample.Migration](src/Ews.Sample.Migration/README.md) so you can use them directly from Copilot CLI.
 
 ### Add the marketplace
 
 Start a Copilot CLI session in the repository you want to migrate, then add this marketplace:
 
-```text
+```shell
 /plugin marketplace add OfficeDev/ews-migration-analyzer
+/plugin install ews-migration@-ews-migration-skills
 ```
 
-This registers the `ews-migration` plugin from this repository.
+This registers the `ews-migration-analyzer` marketplace and installs the `ews-migration-skills` plugin from this repository.
+
+| NOTE: While the skills are still located in a side branch, the repo must be cloned and the market place added from the local repo. Once the skills are merged into the main branch, you will be able to add the marketplace directly from GitHub. To add the marketplace from a local clone follow these steps:
+
+```shell
+git clone -b add-skills https://github.com/OfficeDev/ews-migration-analyzer.git
+copilot plugin marketplace add {repo root}\.github\plugin\marketplace.json
+copilot plugin install ews-migration@ews-migration-skills
+```
 
 ### Use the orchestrator
 
